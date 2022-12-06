@@ -20,7 +20,6 @@ Thursday:
 	SQL: Grant & Revoke
 	Unix: Database Administration
 	Unix: Database installation & configuration
-Friday:
 	Report/querying
 	Different types of databases
 	Stored procedure
