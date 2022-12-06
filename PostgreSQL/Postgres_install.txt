@@ -12,9 +12,9 @@ INSTALLING POSTGRESQL ON WINDOWS:
 10. Continue selecting 'Next' until PostgreSQL begins installing.
 11. Select 'Finish'.
 
-INSTALLING POSTGRESQL ON UBUNTU:
+INSTALLING POSTGRESQL ON LINUX:
 
-1. Open up Ubuntu terminal.
+1. Open up linux terminal.
 2. Run 'sudo apt update'
 3. Run 'sudo apt install postgresql postgresql-contrib'
 4. Run 'sudo service postgresql restart'
