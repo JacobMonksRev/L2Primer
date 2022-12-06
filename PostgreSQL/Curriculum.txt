@@ -1,0 +1,27 @@
+Tuesday:
+	Unix: RDBMS client (psql)
+	SQL: Schema and Table
+	SQL: Domain and Referential Integrity
+	SQL: Columns and Constraints
+	SQL: DDL
+Wednesday:
+	SQL: Primary Keys
+	SQL: Foreign Keys
+	SQL: Normalization
+	SQL: Select
+	SQL: Joins and Unions
+	SQL: Indexes
+	SQL: Views
+Thursday:
+	SQL: DML
+	SQL: Insert, Update, Delete
+	SQL: Ranks
+	SQL: DCL
+	SQL: Grant & Revoke
+	Unix: Database Administration
+	Unix: Database installation & configuration
+Friday:
+	Report/querying
+	Different types of databases
+	Stored procedure
+	Database maintenance

@@ -1,0 +1,23 @@
+INSTALLING POSTGRESQL ON WINDOWS:
+
+1. Go to https://postgresql.org/download/
+2. Select your operating system (Windows).
+3. Click 'Download the Installer'.
+4. Select the most recent version supported by your OS. The installer should start downloading.
+5. Open the installer.
+6. Keep all settings on default.
+7. Create a password that you will remember.
+8. The Port Number should be 5432.
+9. Leave it on Default Locale.
+10. Continue selecting 'Next' until PostgreSQL begins installing.
+11. Select 'Finish'.
+
+INSTALLING POSTGRESQL ON UBUNTU:
+
+1. Open up Ubuntu terminal.
+2. Run 'sudo apt update'
+3. Run 'sudo apt install postgresql postgresql-contrib'
+4. Run 'sudo service postgresql restart'
+5. Run 'sudo -u postgres psql'
+6. To login as a different user:
+       'sudo -u user_name psql db_name'

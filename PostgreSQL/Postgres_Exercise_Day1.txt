@@ -1,0 +1,28 @@
+1. Create a new database named 'Day1' and connect to it.
+2. Inside 'Day1', create a new schema named 'Practice'
+3. Using the 'Practice' schema, create a table called 'Employees' with columns: ID (PK), first_name, last_name
+4. Insert at least 5 records into the 'Employees' table.
+5. Create another table called 'Salaries' with columns: Emp_ID (FK), Salary
+6. Insert at least 5 records into 'Salaries' that match with all the records in 'Employees'
+7. Queries:
+	a- all employees' names
+	b- all employees' names if their name contains an 'a' 
+	c- the count of employees whoes name contains an 'a'
+	d- the average salary of all employees.
+	e- the maximum and minimum salary of all employees and the ID of the employee who has that salary
+	f- all employees' names and their salaries
+	g- the total sum of all employees combined salaries
+
+8. Create another table called 'Departments' with columns Emp_ID (FK), dept_name
+9. Insert at least 5 records into 'Departments' that match with all the records in 'Employees'
+10. Queries:
+	a- select the number of employees in each department
+	b- select the average salary per department
+11. Update the 'Salaries' table to change one person's salary.
+12. Run Query 10-b. again and see the difference.
+13. Add a new record to 'Employees'
+14. Use an Outer Join on 'Employees' and 'Salaries' and observe the result.
+15. Alter the table 'Employees' to add a column: hire_date
+16. Insert data into the hire_date column in the format 'YYYY-MM-DD'
+	(range of years from 1990 to 2000)
+17. Query all employees who were hired after 1995.
