@@ -1,0 +1,26 @@
+1. Create a new database called 'Day2' and connect to it.
+2. Create a new schema called 'Music'.
+3. Create a new table called 'Sales' with columns: Artist, Record_label, music_sales, merch_sales
+4. Put 10 records into the 'Sales' table as shown below:
+Artist:		Record_label:			music_sales:	merch_sales:
+Queen		EMI				88920000	5223000
+Led Zeppelin	Atlantic Records		67000000	4484000
+Taylor Swift	Big Machine Records		120049000	9001200
+Beatles		Apple Records			260000000	15086000
+Marvin Gaye	Motown				47000000	6800210
+Bruno Mars	Motown				190030500	8930500
+Snoop Dogg	Def Jam Recordings		90000000	7502100
+Garth Brooks	Capitol Records Nashville	75113000	11482000
+Bee Gees	Atlantic Records		105000000	6022005
+Daft Punk	Daft Life			83000400	9411500
+
+5. Queries:
+	a - the number of different record labels.
+	b - the top 5 selling artists for music.
+	c - the top 5 selling artists for sales.
+	d - the top 5 selling artists overall.
+	e - the total music sales per record label.
+	f - the average total sales.
+	g - all artists that have sold lower than average total sales.
+	h - the 3rd highest selling record label.
+

@@ -1,0 +1,146 @@
+1. Create a table Employees and insert five records into it:
+
+EmployeeID
+Firstname
+Lastname
+Department
+Salary
+ReportsTo (references EmployeeID)
+
+===========================================================================
+
+2. 3 tables:
+
+table 1: Mr. Johnson
+table 2: Ms. Mary
+table 3: Ms. Angela
+
+5 records per table: 
+ID, firstname, lastname, grade
+
+Output all the records from all tables with an added column for 'teacher'.
+
+Table1:
+101	John	Smith	G1
+
+Table2:
+201	Mary	Jerry	G2
+
+Table3:
+301	Joe	Kemp	G3
+
+Output:
+101	John	Smith	G1	Mr. Johnson
+201	Mary	Jerry	G2	Ms. Mary
+301	Joe	Kemp	G3	Ms. Angela
+
+======================================================================
+
+3. We have 2 tables with the following schema:
+
+    Employees                       Departments
+Fields     | DataTypes          Fields  | DataTypes
+-----------+-----------        ---------+-----------
+Emp_ID     | INT                Dept_ID | INT
+FirstName  | VARCHAR(255)       Name    | VARCHAR(255)
+LastName   | VARCHAR(255)
+Dept_ID    | INT
+
+Using SQL, how do we output each person's first and last name and the department they work for?
+The output should be displayed in alphabetical order by first name, then by last name.
+
+========================================================================
+
+4. We have a table in MySQL with the following schema:
+
+Employees:
+Fields		| Datatypes
+----------------+-------------
+Name		| VARCHAR(255)	
+Emp_ID		| INT		
+Dept		| VARCHAR(255)	
+No_of_years	| INT		
+Salary		| INT		
+
+Using SQL, find the average salary of the employees
+per department and per how many years they worked.
+
+======================================================================
+
+5. 3 Tables:
+
+Departments:
+Fields	   | Datatypes
+-----------+--------------
+dept_ID    | INT
+dept_name  | VARCHAR(255)
+
+Employees:
+Fields	    | Datatypes
+------------+--------------
+first_name  | VARCHAR(255)
+last_name   | VARCHAR(255)
+dept_ID     | INT
+
+Managers:
+Fields      | Datatypes
+------------+--------------
+first_name  | VARCHAR(255)
+last_name   | VARCHAR(255)
+dept_ID     | INT
+
+   Query the names of all currently working managers,
+   the department they manage,
+   and the number of employees that currently work in their departments.
+
+Output:
+dept_no		dept_name	first_name	last_name	No_Employees
+d001		Sales		Bob		Ross		2342
+
+====================================================================================
+
+(Series of questions)
+Read each of the following steps and write a script to simulate that instruction in your database.
+
+Create a table named inventory with the following fields.
+
+ID (number)
+name (varchar)
+price (number; choose a type that supports at least two decimal places)
+description (varchar)
+quantity (number)
+
+Insert the following records to your table so that it looks like the following:
+
+ID	NAME			PRICE	DESCRIPTION					QUANTITY
+1001	Hershey Bar		3.45	A small chocolate bar				50
+1002	Skittles		3.05	A bag of rainbow colored candies		100
+2003	Gummy Bears		5.55	A large bag of chewy fruit-flavored bears	48
+2005	Sour Gummy Worms	9.55	A very large bag of gelatin worms		20
+3008	Lollipop		2.25	A hard candy atop a stick			268
+9007	M&Ms			1.95	A bag of small chocolate candies		58
+
+Then do the following:
+- Run a query to read and display all records in our table
+
+- A customer has just purchased 2 Hershey Candy Bars. Update the inventory to be 48 now.
+
+- Run a query to return only the descriptions of all records in the table.
+
+- A customer wants to see all items in your store and their prices.
+
+- Run a query to return the name and price only of all records in the table.
+
+- Change the description of the Sour Gummy Worms to be 'A very large, delicious bag of worms'.
+
+- You've received a shipment of M&Ms just now! Update the quantity to 100.
+
+- You are getting a lot of demand for lollipops. Update the price to $2.50.
+
+- What is the total cost to purchase all remaining M&Ms in your store?
+
+- Run a query to return the name and price of the candy item that costs the least amount of money.
+
+- Run a query to return the candy item with the largest quantity in inventory. Return just the name and the quantity left.
+
+- Run a query to return the 3 most expensive candy items. Return all columns.
