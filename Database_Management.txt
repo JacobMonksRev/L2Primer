@@ -1,0 +1,204 @@
+Database Administration and Maintenance
+
+USERS, ROLES, AND PRIVILEGES:
+- PostgreSQL uses 'roles' to represent user accounts.
+- Roles can contain other roles, this is known as a 'group role'.
+- Create Roles:
+
+	CREATE ROLE role_name;
+
+- When roles are created, by default they have no privileges.
+- Create Roles with Role attributes:
+
+	CREATE ROLE role_name [attribute]
+
+	Possible attributes:
+	- LOGIN 'password' - allow the user to login with a chosen password
+	- SUPERUSER - superusers can override all access restrictions
+	- CREATEDB - allows user to create new databases
+	- VALID UNTIL 'YYYY-MM-DD' - create a validity period for login privilege
+	- CONNECTION LIMIT connection_count - limit the number of concurrent connections for a role
+	
+- Get all roles in the current server:
+
+	SELECT rolname FROM pg_roles;
+
+- Normally, users can only access schema that they own.
+- By default, all users can access and create objects in the 'public' schema.
+- To allow users to access other schema:
+
+	GRANT USAGE ON SCHEMA schema_name TO role_name;
+
+- To allow users to create new objects in other schema:
+
+	GRANT CREATE ON SCHEMA schema_name TO role_name;
+
+- To allow user to perform operations on a table:
+
+	GRANT [SELECT/INSERT/DELETE/UPDATE/TRUNCATE/ALL] ON table_name TO role_name;
+
+- To allow user all operations on all tables in a schema:
+
+	GRANT ALL ON ALL TABLES IN SCHEMA schema_name TO role_name;
+
+- REVOKE removes privileges from users.
+- It is written identically to GRANT except replace 'GRANT' and 'TO' with 'REVOKE' and 'FROM'.
+
+- ALTER allows you to change role attributes after a role is created.
+
+	ALTER ROLE role_name WITH [option];
+
+	Possible options:
+	- SUPERUSER / NOSUPERUSER
+	- CREATEDB / NOCREATEDB
+	- CREATEROLE / NOCREATEROLE
+	- INHERIT / NOINHERIT
+	- LOGIN / NOLOGIN
+	- REPLICATION / NOREPLICATION
+	- BYPASSRLS / NOBYPASSRLS
+	- CONNECTION LIMIT limit
+	- PASSWORD 'password' / PASSWORD NULL
+	- VALID UNTIL 'timestamp'
+
+- DROP ROLE deletes roles from the server.
+
+	DROP ROLE [IF EXISTS] role_name;
+
+- Before dropping roles, you must do the following:
+	1. Revoke all privileges from the roles
+	2. Either drop or reassign ownership for any objects that role created
+
+	REASSIGN OWNED BY target_role TO another_role;
+	DROP OWNED BY target_role;
+
+- Group Roles are useful for applying GRANT and REVOKE to multiple roles at once.
+- To make a role a part of a group role:
+
+	GRANT group_role TO user_role;
+
+- Use INHERIT to make it so the role inherits all privileges of the group role.
+
+	CREATE ROLE role_name INHERIT LOGIN 'password';
+
+PSQL DATABASE MANAGEMENT:
+- Create new Database:
+
+	CREATE DATABASE db;
+
+- Alter a database's properties:
+
+	ALTER DATABASE db ... ;
+
+- Rename a database:
+
+	ALTER DATABASE db RENAME TO newdb;
+
+- Drop database:
+
+	DROP DATABASE db;
+
+- Copy a database:
+	
+	CREATE DATABASE db_new WITH TEMPLATE db_old;
+	(This may take a while to execute)
+
+- Before altering, dropping, or otherwise performing management activities
+  on a database, be sure there are no active connections to avoid data loss.
+	First, disconnect from the database.
+
+		\c postgres
+
+	Then, check if there are any active connections.
+
+		SELECT * FROM pg_stat_activity WHERE datname = 'db';
+
+	Look in the 'state' field and make sure it does not say 'active'.
+	If the state is 'active' inform all active connections that you will terminate connections.
+	You can find the active connections in the following fields:
+		pid, usename, client_addr
+	When ready, terminate all connections.
+
+		SELECT pg_terminate_backend (pid) FROM pg_stat_activity WHERE datname = 'db';
+
+- Postgres Database / Table properties:
+	These are properties that you can access using SELECT with built-in macros.
+
+		pg_stat_activity - shows connection status for the server
+		pg_relation_size('table_name') - size of table in Bytes
+		pg_indexes_size('table_name') - size of index(ex) in bytes
+		pg_total_relation_size('table_name') - size of table, its indexes, and additional objects
+		pg_database - displays all databases in the server
+		pg_database_size('db') - size of database in bytes
+		pg_tablespace - displays all tablespaces
+		pg_tablespace_size('pg_default') - size of the (default) tablespace
+		pg_roles - displays info on server roles
+		pg_size_pretty() - function that will return the size output in a more readable manner
+
+	Ex. Find the size of all databases in the server:
+	
+		SELECT pg_database.datname, pg_size_pretty(pg_database_size(pg_database.datname))
+		FROM pg_database;
+		
+	Ex. Find the largest tables in the database:
+
+		SELECT relname AS relation,
+		       pg_size_pretty(pg_total_relation_size(C .oid)) AS total_size
+		FROM pg_class C
+		LEFT JOIN pg_namespace N ON N.oid = C .relnamespace
+		WHERE nspname NOT IN ('pg_catalog','information_schema')
+		AND C .relkind <> 'i'
+		AND nspname !~ '^pg_toast'
+		ORDER BY pg_total_relation_size (C .oid) DESC;
+
+BACKUP AND RESTORE:
+- Backing up databases allows you to save the files for creating a database in another location.
+- This is incredibly important in the case of data loss, network failures, and corruption.
+- pg_dump is the command used to backup PostgreSQL databases, and it is found in the location:
+	C:\Program Files\PostgreSQL\14\bin
+
+- In command prompt, use the following commands to backup and restore a database:
+
+	pg_dump -U postgres -W -F t database_name > c:\backup\location
+
+	- Parameters for pg_dump:
+		-U specified the connection to the server
+		-W prompts the user for a password
+		-F specifies the output file format (t = tar)
+
+	pg_restore -U postgres --dbname=database_name --verbose C:\backup\location
+	- database_name must be an existing empty database
+
+TABLESPACES:
+- A tablespace is a location on disk where Postgres stores data files containing database objects.
+- Postgres uses tablespace to map a logical name to a physical location on disk.
+- Two default tablespaces:
+	pg_default
+	pg_global
+- Tablespaces allow you to control the disk layout of PostgreSQL.
+- Advantages of using tablespaces:
+	Create a new tablespace on a different partition if the current partition is out of space.
+	Use statistics to optimize database performance.
+	- Ex. place frequently accessed indexes on faster devices such as SSD and rarely used data on slower devices.
+- Create tablespace:
+
+	CREATE TABLESPACE tablespace_name
+	OWNER user_name (by default the owner is the creator)
+	LOCATION directory_path;
+
+- Once a tablespace is created, you can now create databases, schema, and tables stored at that location:
+
+	CREATE DATABASE db_name 
+	TABLESPACE tablespace_name;
+
+- Tablespaces can be altered in a number of ways.
+
+	ALTER TABLESPACE tablespace_name ... ;
+
+	- RENAME TO new_name;
+	- OWNER TO new_owner;
+	- SET parameter_name = value;
+
+- You can view all current tablespaces using:
+
+	SELECT * FROM pg_tablespace;
+
