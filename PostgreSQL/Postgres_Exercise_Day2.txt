@@ -24,3 +24,5 @@ Daft Punk	Daft Life			83000400	9411500
 	g - all artists that have sold lower than average total sales.
 	h - the 3rd highest selling record label.
 
+6. Write a Stored Procedure with inputs (name, amount) that will add to a chosen artist's music_sales.
+7. Using the Stored Procedure, add 4000 to Marvin Gaye's music sales.
