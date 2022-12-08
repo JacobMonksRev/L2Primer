@@ -133,7 +133,9 @@ PSQL DATABASE MANAGEMENT:
 		pg_tablespace_size('pg_default') - size of the (default) tablespace
 		pg_roles - displays info on server roles
 		pg_size_pretty() - function that will return the size output in a more readable manner
-
+		pg_stat_progress_analyze - displays all currently running 'ANALYZE' processes
+		pg_stat_progress_create_index - display all currently running 'CREATE INDEX' processes
+		
 	Ex. Find the size of all databases in the server:
 	
 		SELECT pg_database.datname, pg_size_pretty(pg_database_size(pg_database.datname))
@@ -149,6 +151,9 @@ PSQL DATABASE MANAGEMENT:
 		AND C .relkind <> 'i'
 		AND nspname !~ '^pg_toast'
 		ORDER BY pg_total_relation_size (C .oid) DESC;
+
+- Monitoring Database Activity:
+	pg_
 
 BACKUP AND RESTORE:
 - Backing up databases allows you to save the files for creating a database in another location.
