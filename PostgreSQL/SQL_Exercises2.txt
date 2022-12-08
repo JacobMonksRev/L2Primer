@@ -1,0 +1,193 @@
+1. We are given two tables named Titles and Salaries with the schema shown below.
+
+Assume an employee only has one title.
+
+Query all titles and the maximum salary for employees who possess that title.
+
+Titles:
+Fields:	|Datatypes:
+--------+-----------
+emp_no	|INT
+title	|VARCHAR(255)
+
+Salaries:
+Fields:	|Datatypes:
+--------+-----------
+emp_no	|INT
+salary	|INT
+
+========================================================
+2. We are given a table named Employees with the schema listed below.
+
+Query the first name, last name, and hire date of the 5 most recently hired employees.
+
+Employees:
+Fields:	    |Datatypes:
+------------+----------
+emp_no	    |INT
+first_name  |VARCHAR(255)
+last_name   |VARCHAR(255)
+gender	    |ENUM(‘M’,’F’)
+hire_date   |DATE
+
+========================================================
+3. We are given a table named Employees with the schema listed below.
+
+The values in the 'hire_date' field are written in the format 'YYYY-MM-DD'.
+
+Query the first and last names of all employees that were hired in the year 2000. Sort the output alphabetically by last name, then by first name.
+
+Employees:
+ 
+Fields:		|Datatypes:
+----------------+------------
+emp_no		|INT
+first_name	|VARCHAR(255)
+last_name	|VARCHAR(255)
+gender		|ENUM(‘M’,’F’)
+hire_date	|DATE
+
+=========================================================
+4. We are given two tables named Employees and Salaries with the schema listed below.
+
+Query the first names of all employees that start with 'V' and have a salary of at least 100000. Avoid any duplicates in your output.
+
+Employees:
+ 
+Fields:		|Datatypes:
+----------------+-----------
+emp_no		|INT
+first_name	|VARCHAR(255)
+last_name	|VARCHAR(255)
+gender		|ENUM(‘M’,’F’)
+hire_date	|DATE
+
+Salaries:
+Fields:	|Datatypes:
+--------+-----------
+emp_no	|INT
+salary	|INT
+
+========================================================
+5.We are given two tables named Employees and Salaries with the schema listed below.
+
+The to_date field indicates historical data that is no longer true. Current data will have a value of '9999-01-01' in the to_date field.
+
+Query the employee with the 2nd highest current salary.
+
+Employees:
+ 
+Fields:		|Datatypes:
+----------------+-----------
+emp_no		|INT
+first_name	|VARCHAR(255)
+last_name	|VARCHAR(255)
+gender		|ENUM(‘M’,’F’)
+hire_date	|DATE
+
+Salaries:
+Fields:		|Datatypes:
+----------------+-----------
+emp_no		|INT
+salary		|INT
+from_date	|DATE
+to_date		|DATE
+
+=======================================================
+6. We are given two tables named Employees and Salaries with the schema shown below.
+
+The to_date field indicates historical data that is no longer true. Data that is current will have a value of '9999-01-01' in the to_date field.
+
+Query the average of all employees' current working salaries, round the output to the next dollar.
+
+Employees:
+ 
+Fields:		|Datatypes:
+----------------+-----------
+emp_no		|INT
+first_name	|VARCHAR(255)
+last_name	|VARCHAR(255)
+gender		|ENUM(‘M’,’F’)
+hire_date	|DATE
+
+Salaries:
+Fields:		|Datatypes:
+----------------+-----------
+emp_no		|INT
+salary		|INT
+from_date	|DATE
+to_date		|DATE
+
+===========================================================
+7. We are given two tables named Employees and Dept_managers with the schema shown below.
+
+The 'to_date' field in both tables indicates historical data that is no longer true. This field will contain the value '9999-01-01' if the employee is still working in that position.
+
+Query the employee numbers and the first and last names of all employees who were previously managers but aren't anymore.
+
+Employees:
+ 
+Fields:		|Datatypes:
+----------------+-----------
+emp_no		|INT
+first_name	|VARCHAR(255)
+last_name	|VARCHAR(255)
+from_date	|DATE
+to_date		|DATE
+
+Dept_manager:
+Fields		|Datatypes:
+----------------+-----------
+emp_no		|INT
+dept_no		|INT
+from_date	|DATE
+to_date		|DATE
+
+=========================================================
+8. We are given two tables, departments and dept_emp, and they have the schema shown below.
+Query the department names and the number of employees that are in each department.
+
+Dept_emp:
+Fields:	|Datatypes:
+--------+-----------
+emp_no	|INT
+dept_no	|INT 
+
+Departments:
+Fields:		|Datatypes:
+----------------+-----------
+dept_no		|INT
+dept_name	|VARCHAR(255)
+
+===========================================================
+9. We are given two tables, Employees and Salaries, and they have the schema shown below.
+Query the first and last names and the salaries of the employees with the 5 highest salaries.
+
+Employees:
+Fields:		|Datatypes:
+----------------+-----------
+emp_no		|INT
+first_name	|VARCHAR(255)
+last_name	|VARCHAR(255)
+
+Salaries:
+Fields:	|Datatypes:
+--------+-----------
+emp_no	|INT
+salary	|INT
+
+===========================================================
+10. We are given a table named Salaries with the schema shown below.
+
+The to_date field indicates historical data that is no longer true. Data that is current will have a value of '9999-01-01' in the to_date field.
+
+Create a Stored Procedure that will update the table to reflect an increase in salary.
+Using this stored procedure, increase the salary of emp_no 7690 by $5000.
+
+Salaries:
+Fields:		|Datatypes:
+----------------+-----------
+emp_no		|INT
+salary		|INT
+from_date	|DATE
+to_date		|DATE
