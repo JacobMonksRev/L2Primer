@@ -152,9 +152,6 @@ PSQL DATABASE MANAGEMENT:
 		AND nspname !~ '^pg_toast'
 		ORDER BY pg_total_relation_size (C .oid) DESC;
 
-- Monitoring Database Activity:
-	pg_
-
 BACKUP AND RESTORE:
 - Backing up databases allows you to save the files for creating a database in another location.
 - This is incredibly important in the case of data loss, network failures, and corruption.
