@@ -16,6 +16,8 @@ Fields:	|Datatypes:
 emp_no	|INT
 salary	|INT
 
+Solution(s):
+SELECT title, MAX(salary) FROM titles JOIN salaries ON titles.emp_no = salaries.emp_no GROUP BY title;
 ========================================================
 2. We are given a table named Employees with the schema listed below.
 
@@ -27,9 +29,12 @@ Fields:	    |Datatypes:
 emp_no	    |INT
 first_name  |VARCHAR(255)
 last_name   |VARCHAR(255)
-gender	    |ENUM(‘M’,’F’)
-hire_date   |DATE
+gender	    |CHAR(1)
+hire_date   |DATE		(YYYY-MM-DD)
 
+Solution(s):
+SELECT first_name, last_name, hire_date FROM Employees ORDER BY hire_date DESC LIMIT 5;
+SELECT first_name || ' ' || last_name AS Name, hire_date from Employees ORDER BY hire_date DESC LIMIT 5;
 ========================================================
 3. We are given a table named Employees with the schema listed below.
 
@@ -47,6 +52,9 @@ last_name	|VARCHAR(255)
 gender		|ENUM(‘M’,’F’)
 hire_date	|DATE
 
+Solution(s):
+SELECT first_name, last_name FROM Employees WHERE hire_date BETWEEN '2000-01-01' AND '2000-12-31' ORDER BY last_name, first_name;
+SELECT first_name, last_name FROM Employees WHERE extract(year FROM hire_date) = 2000 ORDER BY last_name, first_name;
 =========================================================
 4. We are given two tables named Employees and Salaries with the schema listed below.
 
@@ -68,12 +76,16 @@ Fields:	|Datatypes:
 emp_no	|INT
 salary	|INT
 
+Solution(s):
+SELECT DISTINCT first_name FROM Employees JOIN Salaries ON Employees.emp_no = salaries.emp_no WHERE salary >= 100000 AND first_name LIKE 'V%';
+SELECT DISTINCT first_name FROM Employees JOIN Salaries ON Employees.emp_no = salaries.emp_no WHERE salary >= 100000 AND substring(first_name,1,1)='V';
+SELECT DISTINCTROW first_name FROM Employees JOIN Salaries ON Employees.emp_no = salaries.emp_no WHERE salary >= 100000 AND upper(first_name) LIKE 'V%';
 ========================================================
 5.We are given two tables named Employees and Salaries with the schema listed below.
 
 The to_date field indicates historical data that is no longer true. Current data will have a value of '9999-01-01' in the to_date field.
 
-Query the employee with the 2nd highest current salary.
+Query the first and last name of the employee with the 2nd highest current salary.
 
 Employees:
  
@@ -92,6 +104,12 @@ emp_no		|INT
 salary		|INT
 from_date	|DATE
 to_date		|DATE
+
+Solution(s):
+SELECT first_name, last_name FROM Employees JOIN salaries ON Employees.emp_no = salaries.emp_no WHERE to_date = '9999-01-01' ORDER BY salary DESC LIMIT 1 OFFSET 2;
+SELECT first_name, last_name FROM Employees JOIN (SELECT * FROM Salaries WHERE to_date = '9999-01-01') AS s ON Employees.emp_no = s.emp_no ORDER BY salary DESC LIMIT 1 OFFSET 1;
+***SELECT E.first_name, E.last_name FROM Employees E JOIN Salaries S ON E.Emp_no = S.Emp_no ORDER BY S.Salary LIMIT 1 OFFSET 1 WHERE S.To_date = '9999-01-01';
+SELECT * FROM (SELECT first_name, last_name, DENSE_RANK() OVER (ORDER BY salary DESC) FROM Salaries s JOIN Employees e ON s.emp_no = e.emp_no WHERE to_date = '9999-01-01') t WHERE t.Rank = 2;
 
 =======================================================
 6. We are given two tables named Employees and Salaries with the schema shown below.
@@ -118,6 +136,8 @@ salary		|INT
 from_date	|DATE
 to_date		|DATE
 
+SOLUTION(s):
+SELECT CEIL(AVG(salary)) FROM salaries WHERE to_date = '9999-01-01';
 ===========================================================
 7. We are given two tables named Employees and Dept_managers with the schema shown below.
 
@@ -191,3 +211,15 @@ emp_no		|INT
 salary		|INT
 from_date	|DATE
 to_date		|DATE
+
+TRIGGER
+AFTER INSERT
+AFTER DELETE
+AFTER UPDATE
+BEFORE INSERT
+BEFORE DELETE
+BEFORE UPDATE
+
+CREATE TRIGGER trigger_name BEFORE UPDATE ON drivers
+WHEN (condition)
+EXECUTE FUNCTION funct_name;
